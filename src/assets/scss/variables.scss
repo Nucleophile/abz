@@ -1,0 +1,39 @@
+// Breakpoints
+$tablet: rem(768);
+$laptop: rem(1024);
+$desktop: rem(1290);
+
+// Colors
+$primary: #f4e041;
+$secondary: #00bdd3;
+$primary-hover: #ffe302;
+$page-bg: #f8f8f8;
+$primary-disabled: #b4b4b4;
+$input-border-color: #d0cfcf;
+$input-info-color: #7e7e7e;
+$input-label-color: $input-info-color;
+$error: #cb3d40;
+$fontColor: #000;
+
+// Various dimensions
+$container-gutter: rem(16);
+$tablet-content: rem(704);
+$tablet-container: $tablet-content + $container-gutter * 2;
+$laptop-content: rem(904);
+$laptop-container: $laptop-content + $container-gutter * 2;
+$desktop-content: rem(1170);
+$desktop-container: $desktop-content + $container-gutter * 2;
+$small-content: rem(380);
+$small-container: $small-content + $container-gutter * 2;
+$user-list-tablet-gap: rem(16);
+$user-list-laptop-gap: rem(29);
+$user-list-desktop-gap: rem(30);
+$input-padding: rem(13);
+$input-border: rem(1);
+$input-border-radius: rem(4);
+$input-label-padding: rem(4);
+$input-label-focused-lh: rem(14);
+$default-font-lh: rem(26);
+$radio-size: rem(20);
+$radio-mb: rem(8);
+$form-control-mb: rem(50);
