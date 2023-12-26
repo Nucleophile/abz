@@ -1,24 +1,27 @@
 <template>
   <div class="form-control" :class="{ 'form-control--error': error }">
-    <input
-      class="file-input"
-      type="file"
-      name="photo"
-      id="photo"
-      accept="image/jpg, image/jpeg"
-      @change="inputChange"
-      v-bind="$attrs"
-    />
-    <label
-      class="file-input-label"
-      :class="{ 'file-input-label--selected': fileSelected }"
-      for="photo"
-    >
-      <span class="file-input-label__button">Upload</span>
-      <span class="file-input-label__text">{{ labelText }}</span>
-    </label>
+    <div class="file-input-container">
+      <input
+        class="file-input"
+        type="file"
+        name="photo"
+        id="photo"
+        accept="image/jpg, image/jpeg"
+        @change="inputChange"
+        v-bind="$attrs"
+      />
+      <label
+        class="file-input-label"
+        :class="{ 'file-input-label--selected': fileSelected }"
+        for="photo"
+      >
+        <span class="file-input-label__button">Upload</span>
+        <span class="file-input-label__text">{{ labelText }}</span>
+      </label>
+    </div>
     <div class="text-input-info text-input-info--error" v-if="error === true">
-      Wrong value. Minimum size of photo is 70x70px. The photo format must be jpeg/jpg. The photo size must not be greater than 5&nbsp;Mb
+      Wrong value. Minimum size of photo is 70x70px. The photo format must be
+      jpeg/jpg. The photo size must not be greater than 5&nbsp;Mb
     </div>
   </div>
 </template>
@@ -29,7 +32,7 @@ export default {
   name: "FileInput",
   inheritAttrs: false,
   props: {
-    error: Boolean
+    error: Boolean,
   },
   setup() {
     const labelTextDefault = "Upload your photo";
@@ -53,27 +56,38 @@ export default {
 </script>
 
 <style lang="scss">
-.file-input-label {
-  display: flex;
+.file-input {
   position: absolute;
+  z-index: -1;
   top: 0;
   left: 0;
-  &--selected {
-    .file-input-label__text {
-      color: #000;
+  bottom: 0;
+  right: 0;
+  &-container {
+    position: relative;
+  }
+  &-label {
+    display: flex;
+    &--selected {
+      .file-input-label__text {
+        color: #000;
+      }
     }
-  }
-  &__button {
-    border-color: #000;
-    border-top-left-radius: $input-border-radius;
-    border-bottom-left-radius: $input-border-radius;
-  }
-  &__text {
-    flex-grow: 1;
-    border-left: none;
-    border-top-right-radius: $input-border-radius;
-    border-bottom-right-radius: $input-border-radius;
-    color: $input-label-color;
+    &__button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-color: #000;
+      border-top-left-radius: $input-border-radius;
+      border-bottom-left-radius: $input-border-radius;
+    }
+    &__text {
+      flex-grow: 1;
+      border-left: none;
+      border-top-right-radius: $input-border-radius;
+      border-bottom-right-radius: $input-border-radius;
+      color: $input-label-color;
+    }
   }
 }
 </style>
