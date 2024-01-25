@@ -9,14 +9,14 @@
               name="name"
               label="Your name"
               :error="getErrorPropValue('name')"
-              @blur.once="validateLength(2, 60, $event)"
+              @validate="validateLength(2, 60, $event)"
             />
             <TextInput
               type="email"
               name="email"
               label="Email"
               :error="getErrorPropValue('email')"
-              @blur.once="validateRegEx"
+              @validate="validateRegEx"
             />
             <TextInput
               type="tel"
@@ -24,7 +24,7 @@
               label="Phone"
               info="+38 (XXX) XXX - XX - XX"
               :error="getErrorPropValue('phone')"
-              @blur.once="validateRegEx"
+              @validate="validateRegEx"
             />
             <fieldset class="position-fieldset">
               <legend class="position-fieldset__legend">
@@ -119,7 +119,7 @@ export default {
       });
 
     // Validation of fields with input length rule
-    function validateLength(minLength, maxLength, e, onInput) {
+    function validateLength(minLength, maxLength, e) {
       let valid = false;
 
       if (
@@ -130,24 +130,12 @@ export default {
       }
 
       fieldsValidity[e.target.name] = valid;
-
-      if (!onInput) {
-        // After first blur we start listening an input event
-        e.target.addEventListener("input", (e) =>
-          validateLength(minLength, maxLength, e, true)
-        );
-      }
     }
 
     // Validation of fields with input value correspondence to some regExp
-    function validateRegEx(e, onInput) {
+    function validateRegEx(e) {
       const regexp = validationRegExp[e.target.name];
       fieldsValidity[e.target.name] = regexp.test(e.target.value);
-
-      if (!onInput) {
-        // After first blur we start listening an input event
-        e.target.addEventListener("input", (e) => validateRegEx(e, true));
-      }
     }
 
     // Validation of photo field
@@ -182,7 +170,8 @@ export default {
     }
 
     function submitForm(e) {
-      if (!sending.value) { // To prevent several submitions
+      if (!sending.value) {
+        // To prevent several submitions
         sending.value = true;
         formSubmitErrorMsg.value = "";
         fetch("https://frontend-test-assignment-api.abz.agency/api/v1/token")

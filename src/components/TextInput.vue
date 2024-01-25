@@ -6,7 +6,8 @@
       :id="id"
       :name="name"
       placeholder=" "
-      v-bind="$attrs"
+      @blur.once="validate"
+      @input="validate"
     />
     <label class="text-input-label" :for="id">{{ label }}</label>
     <div class="text-input-info text-input-info--error" v-if="error === true">
@@ -21,7 +22,6 @@ import { ref } from "vue";
 
 export default {
   name: "TextInput",
-  inheritAttrs: false,
   props: {
     type: {
       type: String,
@@ -36,10 +36,21 @@ export default {
     info: String,
     error: Boolean,
   },
-  setup(props) {
+  emits: ["validate"],
+  setup(props, { emit }) {
     let infoMsg = ref(props.info);
+    let blured = false;
 
-    return { infoMsg };
+    function validate(e) {
+      if (e.type === "input" && !blured) {
+        return;
+      } else {
+        blured = true;
+      }
+      emit("validate", e);
+    }
+
+    return { infoMsg, validate };
   },
   components: {},
 };
